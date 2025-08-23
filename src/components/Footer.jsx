@@ -1,53 +1,101 @@
 import styles from "./Footer.module.css";
-import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
-      <div className={styles.container}>
-        <div className={styles.linksSection}>
-          <div className={styles.column}>
-            <h4>Toyota</h4>
-            <a href="/about">Sobre Nosotros</a>
-            <a href="/news">Noticias</a>
-            <a href="/careers">Carreras</a>
-          </div>
-          <div className={styles.column}>
-            <h4>Clientes</h4>
-            <a href="/support">Soporte</a>
-            <a href="/warranty">Garantía</a>
-            <a href="/contact">Contacto</a>
-          </div>
-          <div className={styles.column}>
-            <h4>Legal</h4>
-            <a href="/terms">Términos y Condiciones</a>
-            <a href="/privacy">Política de Privacidad</a>
-            <a href="/cookie">Política de Cookies</a>
-          </div>
-          <div className={styles.column}>
-            <h4>Síguenos</h4>
-            <div className={styles.socialIcons}>
-              <a href="https://www.facebook.com">
-                <FaFacebookF />
-              </a>
-              <a href="https://www.instagram.com">
-                <FaInstagram />
-              </a>
-              <a href="https://www.twitter.com">
-                <FaTwitter />
-              </a>
-              <a href="https://www.youtube.com">
-                <FaYoutube />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.bottomBar}>
-          <p>
-            © {new Date().getFullYear()} Toyota. Todos los derechos reservados.
+    <footer className={styles.footer} role="contentinfo">
+      <div className={styles.grid}>
+        <div className={styles.brand}>
+          <img src="/assets/toyota-7.svg" alt="Toyota" />
+          {/* <span>TOYOTA</span> */}
+          <p className={styles.copy}>
+            Innovación, seguridad y desempeño para cada camino.
           </p>
         </div>
+
+        <nav className={styles.cols} aria-label="Enlaces del sitio">
+          <div>
+            <h4>Modelos</h4>
+            <ul>
+              <li>
+                <a href="#modelos">Corolla</a>
+              </li>
+              <li>
+                <a href="#modelos">Hilux</a>
+              </li>
+              <li>
+                <a href="#modelos">RAV4</a>
+              </li>
+              <li>
+                <a href="#modelos">Yaris</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4>Servicios</h4>
+            <ul>
+              <li>
+                <a href="#contacto">Agendar test drive</a>
+              </li>
+              <li>
+                <a href="#contacto">Financiamiento</a>
+              </li>
+              <li>
+                <a href="#contacto">Mantenimiento</a>
+              </li>
+              <li>
+                <a href="#contacto">Repuestos</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4>Compañía</h4>
+            <ul>
+              <li>
+                <a href="#">Sobre Toyota</a>
+              </li>
+              <li>
+                <a href="#">Concesionarios</a>
+              </li>
+              <li>
+                <a href="#">Contacto</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4>Legal</h4>
+            <ul>
+              <li>
+                <a href="/legal/privacidad">Política de Privacidad</a>
+              </li>
+              <li>
+                <a href="/legal/terminos">Términos y Condiciones</a>
+              </li>
+              <li>
+                <a href="#">Cookies</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <div className={styles.bottom}>
+        <div className={styles.social}>
+          <a aria-label="Facebook" href="#" target="_blank" rel="noreferrer">
+            
+          </a>
+          <a aria-label="Instagram" href="#" target="_blank" rel="noreferrer">
+            
+          </a>
+          <a aria-label="YouTube" href="#" target="_blank" rel="noreferrer">
+            
+          </a>
+          <a aria-label="LinkedIn" href="#" target="_blank" rel="noreferrer">
+            
+          </a>
+        </div>
+        <p>
+          © {new Date().getFullYear()} Toyota. Todos los derechos reservados.
+        </p>
       </div>
     </footer>
   );

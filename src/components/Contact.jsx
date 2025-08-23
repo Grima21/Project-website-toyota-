@@ -32,7 +32,6 @@ export default function Contact() {
               src="/assets/LogoToyota/toyota_logo_icon_169445.ico"
               alt="Toyota"
             />
-            <span>TOYOTA</span>
           </div>
         </motion.div>
 

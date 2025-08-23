@@ -83,7 +83,7 @@ function Hero() {
               >
                 <a href="/" aria-label="Ir al inicio">
                   <img
-                    src="./assets/LogoToyota/toyota_logo_icon_169445.ico"
+                    src="./assets/LogoToyota/toyota_logo.ico"
                     alt="Toyota"
                     width={120}
                     height={50}

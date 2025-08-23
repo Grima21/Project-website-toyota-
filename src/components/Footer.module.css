@@ -1,64 +1,133 @@
 .footer {
-  background-color: #f1f1f1;
-  color: #444;
-  padding: 3rem 1rem 1rem;
-  font-family: "Inter", sans-serif;
+  background: #0b0b0b;
+  color: #e5e7eb;
+  padding: clamp(2.2rem, 6vw, 4rem) 1rem 1.25rem;
 }
 
-.container {
+.bottom {
+  border-top: 1px solid #1f2937;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+}
+
+.grid {
   max-width: 1200px;
   margin: 0 auto;
-}
-
-.linksSection {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 2rem;
-  margin-bottom: 2rem;
+  grid-template-columns: 1.2fr 2fr;
 }
 
-.column h4 {
-  margin-bottom: 0.8rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #000;
+.brand {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
 }
-
-.column a {
+.brand img {
+  width: auto;
+  height: 48px;
   display: block;
-  margin-bottom: 0.5rem;
-  color: #444;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.05))
+    drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+}
+
+@media (max-width: 900px) {
+  .brand img {
+    height: 40px;
+  }
+}
+
+.copy {
+  color: #9ca3af;
+  margin-top: 0.75rem;
+  max-width: 48ch;
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+}
+.cols h4 {
+  color: #fff;
   font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin: 0 0 0.6rem 0;
+}
+.cols ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+.cols a {
+  color: #cbd5e1;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.column a:hover {
-  color: #c20000;
+.cols a:hover {
+  color: #eb0a1e;
+} /* rojo Toyota */
+.cols a:focus-visible {
+  outline: 2px solid #eb0a1e;
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
-.socialIcons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
-.socialIcons a {
-  color: #444;
-  font-size: 1.2rem;
-  transition: color 0.3s ease;
-}
-
-.socialIcons a:hover {
-  color: #c20000;
-}
-
-.bottomBar {
-  border-top: 1px solid #ddd;
+.bottom {
+  max-width: 1200px;
+  margin: 1.5rem auto 0;
   padding-top: 1rem;
-  text-align: center;
+  border-top: 1px solid #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  color: #9ca3af;
+  font-size: 0.9rem;
 }
 
-.bottomBar p {
-  font-size: 0.85rem;
+.social {
+  display: flex;
+  gap: 0.8rem;
+}
+.social a {
+  width: 36px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #111;
+  color: #e5e7eb;
+  border: 1px solid #1f2937;
+  font-family: "Font Awesome 6 Free", system-ui, sans-serif;
+}
+.social a:hover {
+  background: #eb0a1e;
+  border-color: #eb0a1e;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(235, 10, 30, 0.4);
+  transform: translateY(-2px);
+}
+
+.social a:focus-visible {
+  outline: 2px solid #eb0a1e;
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bottom {
+    flex-direction: column;
+    text-align: center;
+  }
 }

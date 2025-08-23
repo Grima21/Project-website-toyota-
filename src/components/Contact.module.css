@@ -40,8 +40,8 @@
   opacity: 0.9;
 }
 .brand img {
-  width: 46px;
-  height: 46px;
+  width: 150px;
+  height: 150px;
   object-fit: contain;
 }
 .brand span {
