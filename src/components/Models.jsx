@@ -1,7 +1,14 @@
-// src/components/Models.jsx
-import { useMemo } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import styles from "./Models.module.css";
+
+const TYPE_COLORS = {
+  Hybrid: { bg: "#0ea5e9", fg: "#001018" }, // azul
+  "Hybrid EV": { bg: "#10b981", fg: "#00110b" }, // verde
+  Gasoline: { bg: "#6b7280", fg: "#0b0c0d" }, // gris
+  Diesel: { bg: "#a16207", fg: "#100a00" }, // ámbar
+  EV: { bg: "#22d3ee", fg: "#001015" }, // cian
+};
 
 const vehicles = [
   {
@@ -10,7 +17,7 @@ const vehicles = [
     year: "2025",
     name: "Toyota Yaris",
     tagline: "Compacto, eficiente y moderno",
-    price: "$19,900",
+    price: 19900,
     spec: "39/37 Est. MPG",
   },
   {
@@ -19,7 +26,7 @@ const vehicles = [
     year: "2025",
     name: "Land Cruiser",
     tagline: "Potencia legendaria y lujo",
-    price: "$110,000",
+    price: 110000,
     spec: "20/25 Est. MPG",
   },
   {
@@ -28,7 +35,7 @@ const vehicles = [
     year: "2025",
     name: "Land Cruiser Prado",
     tagline: "Versátil y refinado",
-    price: "$80,000",
+    price: 80000,
     spec: "32/28 Est. MPG",
   },
   {
@@ -37,154 +44,257 @@ const vehicles = [
     year: "2025",
     name: "Hilux SRX",
     tagline: "Resistente e imparable",
-    price: "$50,000",
+    price: 50000,
     spec: "28/22 Est. MPG",
   },
-  // …si quieres más, agrega acá
+  {
+    image: "/assets/Camry.avif",
+    badge: "Hybrid",
+    year: "2025",
+    name: "Camry LE",
+    tagline: "Los viajes diarios merecen más emoción.",
+    price: 29000,
+    spec: "52/49 Est. MPG",
+  },
+  {
+    image: "/assets/Rav4Model.avif",
+    badge: "Gasolina",
+    year: "2025",
+    name: "Rav4 LE",
+    tagline: "Confianza para ir y venir.",
+    price: 29800,
+    spec: "27/35 Est. MPG",
+  },
+  {
+    image: "/assets/4runner.avif",
+    badge: "Gasolina",
+    year: "2025",
+    name: "SR5",
+    tagline: "Un mundo salvaje te espera.",
+    price: 41270,
+    spec: "20/26 Est. MPG",
+  },
+  {
+    image: "/assets/corollaHatchback.avif",
+    badge: "Gasolina",
+    year: "2025",
+    name: "Corolla Hatchback SE",
+    tagline: "Más emoción en cada vuelta",
+    price: 24000,
+    spec: "31/40 Est. MPG",
+  },
+  {
+    image: "/assets/GR86.avif",
+    badge: "Gasolina",
+    year: "2025",
+    name: "GR86",
+    tagline: "Un espíritu indomable con aspecto feroz.",
+    price: 30400,
+    spec: "20/26 Est. MPG",
+  },
+  {
+    image: "/assets/corollaGR.avif",
+    badge: "Gasolina",
+    year: "2025",
+    name: " GR Corolla",
+    tagline: "Un espíritu indomable con aspecto feroz.",
+    price: 39160,
+    spec: "20/26 Est. MPG",
+  },
+  // agrega más…
 ];
+
+function formatUSD(n) {
+  return n.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  });
+}
 
 export default function Models() {
   const reduce = useReducedMotion();
-  const duration = reduce ? 0.2 : 0.55;
-  const stagger = reduce ? 0.04 : 0.11;
+  const duration = reduce ? 0.2 : 0.5;
+  const stagger = reduce ? 0.04 : 0.1;
 
   const variants = useMemo(
     () => ({
       grid: {
         hidden: {},
-        show: {
-          transition: { staggerChildren: stagger, delayChildren: 0.1 },
-        },
+        show: { transition: { staggerChildren: stagger, delayChildren: 0.08 } },
       },
       card: {
         hidden: { y: 18, opacity: 0 },
-        show: {
-          y: 0,
-          opacity: 1,
-          transition: { duration, ease: "easeOut" },
-        },
-        hover: reduce
-          ? {}
-          : {
-              y: -6,
-              scale: 1.01,
-              transition: { duration: 0.18, ease: "easeOut" },
-            },
-      },
-      imageWrap: {
-        rest: { scale: 1 },
-        hover: reduce
-          ? { scale: 1 }
-          : { scale: 1.03, transition: { duration: 0.25 } },
+        show: { y: 0, opacity: 1, transition: { duration, ease: "easeOut" } },
       },
     }),
-    [duration, stagger, reduce]
+    [duration, stagger]
   );
+
+  // Carrusel: refs + accesibilidad
+  const railRef = useRef(null);
+  const [page, setPage] = useState(1);
+  const [pages, setPages] = useState(1);
+
+  useEffect(() => {
+    const el = railRef.current;
+    if (!el) return;
+    const update = () => {
+      const vis = el.clientWidth;
+      const total = el.scrollWidth;
+      const p = Math.max(1, Math.ceil(total / vis));
+      setPages(p);
+      setPage(Math.min(p, Math.max(1, Math.round(el.scrollLeft / vis) + 1)));
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  const scrollByViewport = (dir) => {
+    const el = railRef.current;
+    if (!el) return;
+    const delta = dir * el.clientWidth * 0.92;
+    el.scrollBy({ left: delta, behavior: "smooth" });
+  };
+
+  // teclas ← →
+  const onKeyDown = (e) => {
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      scrollByViewport(1);
+    }
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      scrollByViewport(-1);
+    }
+  };
 
   return (
     <section
-      className={styles.modelsSectionWrapper}
+      className={styles.wrap}
       id="modelos"
       aria-labelledby="models-title"
     >
-      <h2 className={styles.modelsTitle} id="models-title">
+      <h2 className={styles.title} id="models-title">
         Explora Todos Nuestros Modelos
       </h2>
-      <p className={styles.modelsSubtitle}>
+      <p className={styles.subtitle}>
         Tecnología, diseño y eficiencia para cada estilo de vida
       </p>
 
-      {/* Grid animado */}
-      <motion.div
-        className={styles.modelsSection}
+      <div className={styles.carouselHeader}>
+        <div className={styles.spacer} />
+        <div className={styles.controls}>
+          <button
+            type="button"
+            className={styles.navBtn}
+            aria-label="Anterior"
+            onClick={() => scrollByViewport(-1)}
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            className={styles.navBtn}
+            aria-label="Siguiente"
+            onClick={() => scrollByViewport(1)}
+          >
+            ›
+          </button>
+        </div>
+      </div>
+
+      <motion.ul
+        ref={railRef}
+        className={styles.rail}
         variants={variants.grid}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
+        role="listbox"
+        tabIndex={0}
+        onKeyDown={onKeyDown}
+        aria-label="Carrusel de modelos Toyota"
+        aria-live="polite"
       >
-        {vehicles.map((v, i) => (
-          <motion.article
-            key={`${v.name}-${i}`}
-            className={styles.card}
-            variants={variants.card}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-60px" }}
-            whileHover="hover"
-          >
-            <motion.div
-              className={styles.imageContainer}
-              variants={variants.imageWrap}
-              initial="rest"
-              animate="rest"
-              whileHover="hover"
-              aria-label={`${v.name} ${v.year}`}
+        {vehicles.map((v, i) => {
+          const col = TYPE_COLORS[v.badge] || TYPE_COLORS.Gasoline;
+          return (
+            <motion.li
+              key={`${v.name}-${i}`}
+              className={styles.card}
+              variants={variants.card}
+              role="option"
+              aria-label={`${v.name} ${v.year}. Precio desde ${formatUSD(
+                v.price
+              )}. ${v.spec}`}
             >
-              <span className={styles.badge}>{v.badge}</span>
-              <img
-                src={v.image}
-                alt={`${v.name} ${v.year}`}
-                className={styles.image}
-                loading="lazy"
-                decoding="async"
-              />
-            </motion.div>
+              <div className={styles.imageWrap}>
+                <span
+                  className={styles.badge}
+                  style={{ backgroundColor: col.bg, color: col.fg }}
+                >
+                  {v.badge}
+                </span>
 
-            <div className={styles.info}>
-              <p className={styles.year}>{v.year}</p>
-              <h3 className={styles.name}>{v.name}</h3>
-              <p className={styles.tagline}>{v.tagline}</p>
-
-              <div
-                className={styles.meta}
-                role="list"
-                aria-label="Resumen de especificaciones"
-              >
-                <div role="listitem">
-                  <p className={styles.price}>{v.price}</p>
-                  <p className={styles.sub}>Starting MSRP*</p>
-                </div>
-                <div role="listitem">
-                  <p className={styles.spec}>{v.spec}</p>
-                  <p className={styles.sub}>Up to Est. MPG*</p>
-                </div>
+                <picture>
+                  <source srcSet={`${v.image} 1x`} type="image/webp" />
+                  {/* si tienes 2 tamaños, agrega 2x aquí */}
+                  <img
+                    src={v.image}
+                    alt={`${v.name} ${v.year} en carretera`}
+                    loading="lazy"
+                    decoding="async"
+                    className={styles.image}
+                  />
+                </picture>
               </div>
 
-              <div className={styles.buttons}>
-                <motion.button
-                  className={styles.explore}
-                  whileHover={!reduce ? { y: -2 } : {}}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => console.log(`Explorar ${v.name}`)}
-                  aria-label={`Explorar ${v.name}`}
-                >
-                  Explore
-                </motion.button>
+              <div className={styles.info}>
+                <p className={styles.year}>{v.year}</p>
+                <h3 className={styles.name}>{v.name}</h3>
+                <p className={styles.tagline}>{v.tagline}</p>
 
-                <motion.button
-                  className={styles.build}
-                  whileHover={!reduce ? { y: -2 } : {}}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => console.log(`Configurar ${v.name}`)}
-                  aria-label={`Configurar ${v.name}`}
+                <div
+                  className={styles.meta}
+                  aria-label="Resumen de especificaciones"
                 >
-                  Build <span aria-hidden>›</span>
-                </motion.button>
+                  <div>
+                    <p className={styles.price}>{formatUSD(v.price)}</p>
+                    <p className={styles.sub}>Starting MSRP*</p>
+                  </div>
+                  <div>
+                    <p className={styles.spec}>{v.spec}</p>
+                    <p className={styles.sub}>Up to Est. MPG*</p>
+                  </div>
+                </div>
+
+                <div className={styles.buttons}>
+                  <button type="button" className={styles.btnOutline}>
+                    Explore
+                  </button>
+                  <button type="button" className={styles.btnPrimary}>
+                    Build <span aria-hidden>›</span>
+                  </button>
+                </div>
               </div>
-            </div>
-          </motion.article>
-        ))}
-      </motion.div>
+            </motion.li>
+          );
+        })}
+      </motion.ul>
 
-      <div className={styles.modelsButtonContainer}>
-        <motion.button
-          className={styles.viewAllButton}
-          whileHover={!reduce ? { scale: 1.03 } : {}}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => console.log("Ir a /todos-los-modelos 🚗")}
-        >
+      <div className={styles.footer}>
+        <p className={styles.page} aria-live="polite">
+          Vista {page} de {pages}
+        </p>
+        <button type="button" className={styles.viewAll}>
           Ver Todos los Modelos
-        </motion.button>
+        </button>
       </div>
     </section>
   );

@@ -91,7 +91,7 @@
   padding-top: 60px;
   width: 100%;
   min-height: 100vh;
-  background-image: url("/assets/Prado/ToyotaPrado2025.avif");
+  background-image: url("/assets/ToyotaRav4.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -99,6 +99,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.15);
+  z-index: 1;
 }
 
 .header::before {
@@ -126,7 +132,7 @@
   border-radius: 12px;
   max-width: 500px;
   animation: fadeInUp 0.8s ease-out;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.38);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.4);
   line-height: 1.4;
@@ -151,8 +157,19 @@
 
 .descriptionParrafo {
   font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: #333;
+  font-weight: medium;
+  color: #252525ff;
   margin-bottom: 1.5rem;
+}
+.desccriotionSpan {
+  color: var(--color-red-toyota);
+  font-weight: bold;
+}
+
+.containerBtn {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
 }
 
 .descriptionBtn {
@@ -162,23 +179,41 @@
   border-radius: 8px;
   padding: 0.75rem 1.5rem;
   font-size: 0.9rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+  transition: transform 0.25s ease, background-color 0.25s ease,
+    box-shadow 0.25s ease;
+  cursor: pointer;
+}
+.descriptionBtn2 {
+  border: 2px solid var(--color-red-toyota);
+  color: black;
+  background-color: transparent;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   transition: transform 0.25s ease, background-color 0.25s ease,
     box-shadow 0.25s ease;
   cursor: pointer;
 }
+
 .navBtn:focus,
-.descriptionBtn:focus {
-  outline: 1px solid #ff0000;
+.descriptionBtn,
+.descriptionBtn2:focus {
+  /* outline: 1px solid #ff0000; */
   outline-offset: 2px;
 }
 
-.descriptionBtn:hover {
+.descriptionBtn,
+.descriptionBtn2:hover {
   transform: scale(1.05);
   background-color: #2e2e2e;
 
   background-color: #c20000;
   box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+}
+.descriptionBtn2:hover {
+  color: var(--color-light);
 }
 
 /* ======= RESPONSIVE ======= */

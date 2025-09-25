@@ -58,6 +58,26 @@ p {
   line-height: 1.5;
 }
 
+.sectionCta {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+.ctaButton {
+  background: #d81c1cff;
+  color: #fff;
+  border: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.ctaButton:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+
 /* Responsive */
 @media screen and (max-width: 480px) {
   .title {

@@ -28,10 +28,7 @@ export default function Contact() {
 
           {/* Logo opcional */}
           <div className={styles.brand}>
-            <img
-              src="/assets/LogoToyota/toyota_logo_icon_169445.ico"
-              alt="Toyota"
-            />
+            <img src="/assets/toyota-7.svg" alt="Toyota" />
           </div>
         </motion.div>
 

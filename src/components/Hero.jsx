@@ -150,6 +150,7 @@ function Hero() {
 
         {/* HERO */}
         <section className={styles.header}>
+          <div className={styles.overlay} />
           <div className={styles.containerHeader}>
             <div className={styles.banner}>
               <div className={styles.containerBanner}>
@@ -164,23 +165,37 @@ function Hero() {
                     Descubre la Experiencia Toyota
                   </h1>
                   <p className={styles.descriptionParrafo}>
-                    Innovación, calidad y confiabilidad en cada modelo.
-                    Encuentra el Toyota perfecto para ti.
+                    Tecnología híbrida, seguridad líder y el diseño que te
+                    acompaña en cada camino.
                   </p>
-
-                  <motion.button
-                    className={styles.descriptionBtn}
-                    variants={variants.cta}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => scrollTo("modelos")}
-                    aria-label="Ver modelos"
-                  >
-                    Ver Modelos &gt;
-                  </motion.button>
+                  <div className={styles.containerBtn}>
+                    <motion.button
+                      className={styles.descriptionBtn}
+                      variants={variants.cta}
+                      initial="hidden"
+                      whileInView="show"
+                      viewport={{ once: true }}
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => scrollTo("modelos")}
+                      aria-label="Ver modelos"
+                    >
+                      Ver Modelos &gt;
+                    </motion.button>
+                    <motion.button
+                      className={styles.descriptionBtn2}
+                      variants={variants.cta}
+                      initial="hidden"
+                      whileInView="show"
+                      viewport={{ once: true }}
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => scrollTo("modelos")}
+                      aria-label="Ver modelos"
+                    >
+                      Agendar Test Drive &gt;
+                    </motion.button>
+                  </div>
                 </motion.div>
               </div>
             </div>

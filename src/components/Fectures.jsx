@@ -9,6 +9,8 @@ import {
   FaLeaf,
   FaWifi,
   FaTools,
+  FaGasPump,
+  FaHandshake,
 } from "react-icons/fa";
 
 export default function Features() {
@@ -91,6 +93,16 @@ export default function Features() {
       title: "Calidad Garantizada",
       text: "Respaldada por años de experiencia e innovación continua.",
     },
+    {
+      icon: <FaHandshake className={styles.icon} />,
+      title: "Respaldo y Garantía",
+      text: "Cobertura extendida y red de servicio confiable a nivel nacional.",
+    },
+    {
+      icon: <FaGasPump className={styles.icon} />,
+      title: "Eficiencia de Consumo",
+      text: "Motores optimizados para recorrer más kilómetros con menor gasto de combustible.",
+    },
   ];
 
   return (
@@ -144,6 +156,9 @@ export default function Features() {
             </motion.article>
           ))}
         </motion.div>
+        <div className={styles.sectionCta}>
+          <button className={styles.ctaButton}>Ver tecnologia Toyota</button>
+        </div>
       </motion.div>
     </section>
   );
